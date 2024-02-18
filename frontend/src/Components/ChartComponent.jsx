@@ -4,6 +4,7 @@ import { Box, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import SelectTag from "./SelectTag";
 import axios from "axios";
+
 const ChartComponent = () => {
   const [data, setData] = useState([]);
   let totalitems = [];
@@ -21,7 +22,8 @@ const ChartComponent = () => {
   ];
 
   const chartRef = useRef(null);
-  let chartInstance = null;
+  const chartInstance = useRef(null); // Change to useRef
+  // Include pricesrange in dependency array
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
     chartInstance.current = new Chart(ctx, {
@@ -54,11 +56,12 @@ const ChartComponent = () => {
     });
 
     return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
       }
     };
-  }, [data]);
+  }, [data, pricesrange]); // Include pricesrange in dependency array
+
   const handleChange = (e) => {
     console.log(e.target.value);
     pricesrange.forEach((ele) => {
