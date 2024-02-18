@@ -22,20 +22,20 @@ const Home = () => {
   const limit = useRef(10);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (search === "") {
-      dispatch(AllData(page, limit.current));
-    } else {
-      dispatch(Searching_Data(search));
-    }
-  }, [search, page, dispatch]); // Include dispatch in the dependency array
+  // useEffect(() => {
+  //   if (search === "") {
+  //     dispatch(AllData(page, limit.current));
+  //   } else {
+  //     dispatch(Searching_Data(search));
+  //   }
+  // }, [search, page, dispatch]); // Include dispatch in the dependency array
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setTimeout(() => {
-      setSearch(value); // No need to spread search here
-    }, 2000);
-  };
+  // const handleChange = (e) => {
+  //   const { value } = e.target;
+  //   setTimeout(() => {
+  //     setSearch(value); // No need to spread search here
+  //   }, 2000);
+  // };
 
   const handleMonth = (e) => {
     dispatch(Accoding_Month(e.target.value));
@@ -49,13 +49,13 @@ const Home = () => {
             <FaUserCircle style={{ color: "#1d4ed8", fontSize: "30px" }} />
             <Text className="text-lg text-slate-600">Transactions</Text>
           </Flex>
-          <input
+          {/* <input
             type="text"
             className="rounded-md py-2 px-6"
             placeholder="Search..."
             style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
             onChange={handleChange}
-          />
+          /> */}
           <SelectTag name="Select Month" fun={handleMonth} />
           <MonthModal />
           <Link to="/chart" className="w-20">
