@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import { Box, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -8,7 +8,9 @@ import axios from "axios";
 const ChartComponent = () => {
   const [data, setData] = useState([]);
   let totalitems = [];
-  const pricesrange = [
+
+  // Wrap the initialization of pricesrange in useMemo to memoize its value
+  const pricesrange = useMemo(() => [
     "0-100",
     "101-200",
     "201-300",
@@ -19,11 +21,11 @@ const ChartComponent = () => {
     "701-800",
     "801-900",
     "901 Above",
-  ];
+  ], []);
 
   const chartRef = useRef(null);
-  const chartInstance = useRef(null); // Change to useRef
-  // Include pricesrange in dependency array
+  const chartInstance = useRef(null);
+
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
     chartInstance.current = new Chart(ctx, {
@@ -60,7 +62,7 @@ const ChartComponent = () => {
         chartInstance.current.destroy();
       }
     };
-  }, [data, pricesrange]); // Include pricesrange in dependency array
+  }, [data, pricesrange]);
 
   const handleChange = (e) => {
     console.log(e.target.value);
