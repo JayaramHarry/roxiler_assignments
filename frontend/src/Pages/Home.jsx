@@ -1,17 +1,21 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useState } from "react"; 
+// useEffect, useRef, removed from above package of react if you want add them later for search bar in top
+
 import { FaUserCircle } from "react-icons/fa";
 import TransactionTable from "../Components/TransactionTable";
 import { Table, Thead, Tbody, Tr, Th, TableContainer } from "@chakra-ui/react";
 import Pagination from "../Components/Pagination";
-import { Accoding_Month, AllData, Searching_Data } from "../Redux/action";
+import { Accoding_Month } from "../Redux/action";
+// AllData, Searching_Data removed from above redux action 
+
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MonthModal from "../Components/MonthModal";
 import SelectTag from "../Components/SelectTag";
 
 const Home = () => {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const { Transactions } = useSelector(
     (details) => ({
       Transactions: details.TransactionData.data,
@@ -19,16 +23,17 @@ const Home = () => {
     shallowEqual
   );
   const [page, setPage] = useState(1);
-  const limit = useRef(10);
+  // const limit = useRef(10);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (search === "") {
-      dispatch(AllData(page, limit.current));
-    } else {
-      dispatch(Searching_Data(search));
-    }
-  }, [search, page, dispatch]); // Include dispatch in the dependency array
+  // search bar ------------------->
+  // useEffect(() => {
+  //   if (search === "") {
+  //     dispatch(AllData(page, limit.current));
+  //   } else {
+  //     dispatch(Searching_Data(search));
+  //   }
+  // }, [search, page, dispatch]); // Include dispatch in the dependency array
 
   // const handleChange = (e) => {
   //   const { value } = e.target;
