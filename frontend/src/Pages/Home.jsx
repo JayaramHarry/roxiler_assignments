@@ -1,21 +1,17 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import React, {  useState } from "react"; 
-// useEffect, useRef, removed from above package of react if you want add them later for search bar in top
-
+import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import TransactionTable from "../Components/TransactionTable";
 import { Table, Thead, Tbody, Tr, Th, TableContainer } from "@chakra-ui/react";
 import Pagination from "../Components/Pagination";
-import { Accoding_Month } from "../Redux/action";
-// AllData, Searching_Data removed from above redux action 
-
+import { Accoding_Month, AllData, Searching_Data } from "../Redux/action";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MonthModal from "../Components/MonthModal";
 import SelectTag from "../Components/SelectTag";
 
 const Home = () => {
-  // const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const { Transactions } = useSelector(
     (details) => ({
       Transactions: details.TransactionData.data,
@@ -23,24 +19,23 @@ const Home = () => {
     shallowEqual
   );
   const [page, setPage] = useState(1);
-  // const limit = useRef(10);
+  const limit = useRef(10);
   const dispatch = useDispatch();
 
-  // search bar ------------------->
-  // useEffect(() => {
-  //   if (search === "") {
-  //     dispatch(AllData(page, limit.current));
-  //   } else {
-  //     dispatch(Searching_Data(search));
-  //   }
-  // }, [search, page, dispatch]); // Include dispatch in the dependency array
+  useEffect(() => {
+    if (search === "") {
+      dispatch(AllData(page, limit.current));
+    } else {
+      dispatch(Searching_Data(search));
+    }
+  }, [search, page, dispatch]); // Include dispatch in the dependency array
 
-  // const handleChange = (e) => {
-  //   const { value } = e.target;
-  //   setTimeout(() => {
-  //     setSearch(value); // No need to spread search here
-  //   }, 2000);
-  // };
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setTimeout(() => {
+      setSearch(value); // No need to spread search here
+    }, 2000);
+  };
 
   const handleMonth = (e) => {
     dispatch(Accoding_Month(e.target.value));
@@ -54,13 +49,13 @@ const Home = () => {
             <FaUserCircle style={{ color: "#1d4ed8", fontSize: "30px" }} />
             <Text className="text-lg text-slate-600">Transactions</Text>
           </Flex>
-          {/* <input
+          <input
             type="text"
             className="rounded-md py-2 px-6"
             placeholder="Search..."
             style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
             onChange={handleChange}
-          /> */}
+          />
           <SelectTag name="Select Month" fun={handleMonth} />
           <MonthModal />
           <Link to="/chart" className="w-20">
