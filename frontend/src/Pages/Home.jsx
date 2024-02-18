@@ -22,13 +22,13 @@ const Home = () => {
   const limit = useRef(10);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (search === "") {
-  //     dispatch(AllData(page, limit.current));
-  //   } else {
-  //     dispatch(Searching_Data(search));
-  //   }
-  // }, [search, page, dispatch]); // Include dispatch in the dependency array
+  useEffect(() => {
+    if (search === "") {
+      dispatch(AllData(page, limit.current));
+    } else {
+      dispatch(Searching_Data(search));
+    }
+  }, [search, page, dispatch]); // Include dispatch in the dependency array
 
   // const handleChange = (e) => {
   //   const { value } = e.target;
