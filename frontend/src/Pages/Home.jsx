@@ -9,6 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MonthModal from "../Components/MonthModal";
 import SelectTag from "../Components/SelectTag";
+
 const Home = () => {
   const [search, setSearch] = useState("");
   const { Transactions } = useSelector(
@@ -20,20 +21,22 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const limit = useRef(10);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (search === "") {
-dispatch(AllData(page, limit.current));
+      dispatch(AllData(page, limit.current));
     } else {
       dispatch(Searching_Data(search));
     }
-  }, [search,page]);
+  }, [search, page, dispatch]); // Include dispatch in the dependency array
 
   const handleChange = (e) => {
     const { value } = e.target;
     setTimeout(() => {
-      setSearch({ ...search, value });
+      setSearch(value); // No need to spread search here
     }, 2000);
   };
+
   const handleMonth = (e) => {
     dispatch(Accoding_Month(e.target.value));
   };
@@ -42,7 +45,7 @@ dispatch(AllData(page, limit.current));
     <div className="min-h-[70vh] w-12/12 shadow-2xl m-auto bg-white mt-2">
       <Box className="m-auto w-[95%]">
         <Flex className="justify-between items-center p-4">
-          <Flex className="justify-center	items-center" gap="10px">
+          <Flex className="justify-center items-center" gap="10px">
             <FaUserCircle style={{ color: "#1d4ed8", fontSize: "30px" }} />
             <Text className="text-lg text-slate-600">Transactions</Text>
           </Flex>
@@ -53,13 +56,13 @@ dispatch(AllData(page, limit.current));
             style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
             onChange={handleChange}
           />
-
           <SelectTag name="Select Month" fun={handleMonth} />
           <MonthModal />
           <Link to="/chart" className="w-20">
-            <Button style={{background:"#1527e6",
-                            color:"white"
-                            }} w="100%">
+            <Button
+              style={{ background: "#1527e6", color: "white" }}
+              w="100%"
+            >
               Stats
             </Button>
           </Link>

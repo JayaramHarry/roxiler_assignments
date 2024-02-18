@@ -24,7 +24,7 @@ const ChartComponent = () => {
   let chartInstance = null;
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
-    chartInstance = new Chart(ctx, {
+    chartInstance.current = new Chart(ctx, {
       type: "bar",
       data: {
         labels: pricesrange,
