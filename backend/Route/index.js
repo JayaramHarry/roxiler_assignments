@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { connection } = require("./Config/db");
+const { connection } = require("../Config/db");
 const { Transaction } = require("./Route/Get_Transaction");
 const { Barchart } = require("./Route/BarChart.Route");
 const { Statistics_Transaction } = require("./Route/Statistics");
