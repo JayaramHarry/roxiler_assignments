@@ -43,7 +43,7 @@ const Home = () => {
 
   return (
     <div className="min-h-[70vh] w-12/12 shadow-2xl m-auto bg-white mt-2">
-      <Box className="m-auto w-[95%]">
+      <Box className="m-3 w-[95%]">
         <Flex className="justify-between items-center p-4">
           <Flex className="justify-center items-center" gap="10px">
             <FaUserCircle style={{ color: "#1d4ed8", fontSize: "30px" }} />
@@ -51,9 +51,9 @@ const Home = () => {
           </Flex>
           <input
             type="text"
-            className="rounded-md py-2 px-6"
+            className="rounded-md py-2 px-6 "
             placeholder="Search..."
-            style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+            style={{display: "none"}}
             onChange={handleChange}
           />
           <SelectTag name="Select Month" fun={handleMonth} />
